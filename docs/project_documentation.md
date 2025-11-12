@@ -2,15 +2,16 @@
 
 ## Overview
 This project analyzes transactional data from an online retail store between 2010 and 2011.  
-The goal is to extract key business insights about revenue, product performance, customer behavior, and returns using SQL.  
+The goal is to extract key business insights about revenue, product performance, customer behavior, and returns using SQL.
 
 The dataset was cleaned, encoded in UTF-8/Latin1, and imported into MySQL using reproducible scripts.  
-A cleaned version of the dataset (`clean_ecommerce.csv`) is included in the `/data/` folder for full reproducibility.
+A **cleaned version** of the dataset (`clean_ecommerce.csv`) should be **placed manually** in the `/data/` folder before running the loading script (`01_load_clean_csv.sql`).  
+The dataset itself is **not stored in this repository** due to size and licensing restrictions, but the original source (the [UCI Online Retail Dataset](https://archive.ics.uci.edu/ml/datasets/Online+Retail)) is publicly available.
 
 ---
 
 ## Dataset Information
-**File:** `clean_ecommerce.csv`  
+**Expected file:** `clean_ecommerce.csv` (place inside `/data/`)  
 **Records:** 541,909 rows  
 **Columns:**
 - `InvoiceNo` – unique identifier for each transaction  
@@ -49,13 +50,28 @@ These outputs represent the final insights derived from SQL analysis.
 
 ## Reproducibility
 1. Create the database and table using `00_create_db_and_table.sql`  
-2. Load the dataset using `01_load_clean_csv.sql`  
-3. Run each query file in order from `q1_...` to `q10_...`  
+2. Place the cleaned dataset (`clean_ecommerce.csv`) in `/data/`  
+3. Load the dataset using `01_load_clean_csv.sql`  
+4. Run each query file in order from `q1_...` to `q10_...`  
 
-All scripts are included in the `/sql/` folder.
+All SQL scripts are included in the `/queries/` folder.  
+A placeholder file (`.gitkeep`) keeps `/data/` visible in the repository even when the dataset is excluded by `.gitignore`.
+
+---
+
+## Data Cleaning Summary
+The raw Online Retail dataset contained encoding issues, blank descriptions, and missing customer IDs.  
+Before importing into MySQL, the following steps were performed to create `clean_ecommerce.csv`:
+- Removed rows with missing `CustomerID`  
+- Standardized encoding to UTF-8/Latin1 for MySQL compatibility  
+- Trimmed whitespace and ensured no empty product descriptions  
+- Retained both positive (sales) and negative (returns) quantities  
+- Converted date fields into consistent `YYYY-MM-DD HH:MM:SS` format  
 
 ---
 
 ## Author
 **Raphael Dantas**  
-*E-commerce SQL Analysis – Portfolio Project*
+*E-Commerce SQL Analysis – Portfolio Project*
+
+
